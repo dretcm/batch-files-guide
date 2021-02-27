@@ -1,7 +1,7 @@
 # batch-files-guide
 guide about batch files.
 
-<h1>head, message and title:</h1>
+<h1>head, message, commend, and title:</h1>
 
 * '@echo off' only show the commands in the shell, that is to say, dont show 'C:\users\user\>' and others bases.
 * 'echo' print a message.
@@ -10,12 +10,17 @@ guide about batch files.
 
 ```
 @echo off
+
 title test of batch files
+
+:: this is a comend
+REM this also is a comend
+
 echo hello
 pause
 ```
 
-<h1>commands</h1>
+<h1>commands:</h1>
 
 * you can use all possible commands as cmd, for example 'pause'.
 * 'pause>nul' it already dont ask you.
@@ -44,7 +49,7 @@ call conda activate base
 call deactivate
 ```
 
-<h1>variables, inputs</h1>
+<h1>variables, inputs:</h1>
 
 * use 'set' for variables, 'set \p' for inputs, 'set \a' for operations.
 * for invoquing varibale use '%',e.g: '%name%'.
@@ -75,3 +80,126 @@ echo the sum is: %sum%
 
 pause>nul
 ```
+
+<h1>if-if not-else:</h1>
+
+```
+@echo off
+
+SET /p user=enter the user:
+
+if %user%==admi (ECHO WELCOME)
+
+pause>nul
+```
+
+```
+@echo off
+
+SET /p pet=enter animal:
+
+IF NOT %pet%==cat (ECHO the pet isnt a cat) ELSE ECHO the pet is %pet%, good.
+
+pause>nul
+```
+
+<h1>goto, bucle:</h1>
+
+```
+@echo off
+
+:start
+ECHO 1)menu
+ECHO 2)shop
+ECHO 3)exit
+SET /p option=Enter option:
+if %option%==1 (goto menu)
+if %option%==2 (goto shop)
+if %option%==3 (goto exit)
+
+:menu
+ECHO title - shop - help
+pause
+goto start
+
+:shop
+ECHO Car-31gx
+ECHO WagTH
+pause
+goto start
+
+:exit
+exit
+
+goto start
+
+pause>nul
+```
+
+* infinite loop:
+```
+@echo off
+
+:example_bucle
+ECHO HOLA
+goto example_bucle
+
+goto example_bucle
+
+pause>nul
+```
+
+```
+@echo off
+
+:example_bucle
+ECHO HOLA
+
+goto example_bucle
+
+pause>nul
+```
+
+* controlled loop:
+
+```
+@echo off
+
+SET counter=10
+
+:example_bucle
+if %counter%==0 (goto exit) else SET /a counter= %counter% - 1
+ECHO HOLA
+goto example_bucle
+
+:exit
+ECHO bye
+pause
+exit
+
+goto example_bucle
+
+pause>nul
+```
+
+<h1>Message box, error</h1>
+
+```
+@echo off
+
+::   command message box  -    message         -         system   -    title   -    temporal
+echo MsgBox "Escribir un script y despues llamarlo.", 64, "NorfiPC" >%temp%\mensaje.vbs
+
+start %temp%\mensaje.vbs
+```
+
+```
+@echo off
+
+echo coping...
+
+COPY C:\XD D:\docs\here\ || ECHO there was mistake
+
+pause>nul
+```
+
