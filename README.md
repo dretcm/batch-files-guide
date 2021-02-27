@@ -142,8 +142,12 @@ pause>nul
 
 <h1>goto, bucle:</h1>
 
+* Recommended call "goto" always in the begin, and create the instance always in the final, opposite case it could become a loop.
+
 ```
 @echo off
+
+goto start
 
 :start
 ECHO 1)menu
@@ -168,8 +172,6 @@ goto start
 :exit
 exit
 
-goto start
-
 pause>nul
 ```
 
@@ -177,22 +179,22 @@ pause>nul
 ```
 @echo off
 
-:example_bucle
-ECHO HOLA
 goto example_bucle
 
+:example_bucle
+ECHO HOLA
 goto example_bucle
 
 pause>nul
 ```
-
+* this isnt a loop
 ```
 @echo off
 
+goto example_bucle
+
 :example_bucle
 ECHO HOLA
-
-goto example_bucle
 
 pause>nul
 ```
@@ -203,6 +205,7 @@ pause>nul
 @echo off
 
 SET counter=10
+goto example_bucle
 
 :example_bucle
 if %counter%==0 (goto exit) else SET /a counter= %counter% - 1
@@ -213,8 +216,6 @@ goto example_bucle
 ECHO bye
 pause
 exit
-
-goto example_bucle
 
 pause>nul
 ```
