@@ -49,6 +49,35 @@ call conda activate base
 call deactivate
 ```
 
+* especial commands, environments varibles:
+
+%ALLUSERSPROFILE% ------> todos los usuarios
+%APPDATA% ---------> datos de programa
+%PROMPT%%TEMP% y %TMP% ---------> temporales
+%USERDOMAIN% -----------> obtener dominio
+%USERNAME% --------------->nombre del usuario Actual
+%USERPROFILE% ---------------> usuario configuracion
+%programfiles% ---------------> archivos de programas
+%systemroot% ----------------> windows
+%homedrive% --------------> disco Raiz
+
+
+para este caso nos serviria la variable de "%homedrive%". Pongamos el ejemplo con un simple batch que ejecuta el notepad
+Código:
+
+@echo off
+title pruba
+echo ahora se ejecutara el notepad
+%homedrive%/windows/system32/notepad.exe
+exit
+
+
+en caso de que tubieramos en el disco c:
+
+eso reemplaza la unidad, en conclusion son comodines que nos ayudan a la hora de programar batch.
+
+<a href=https://www.taringa.net/+info/guia-completa-de-archivos-batch-parte-1_139ogq> Referencia o pagina de donde saco esto.</a>
+
 <h1>variables, inputs:</h1>
 
 * use 'set' for variables, 'set \p' for inputs, 'set \a' for operations.
