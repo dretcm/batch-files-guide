@@ -52,25 +52,33 @@ call deactivate
 * especial commands, environments varibles:
 
 %ALLUSERSPROFILE% ------> todos los usuarios
+
 %APPDATA% ---------> datos de programa
+
 %PROMPT%%TEMP% y %TMP% ---------> temporales
+
 %USERDOMAIN% -----------> obtener dominio
+
 %USERNAME% --------------->nombre del usuario Actual
+
 %USERPROFILE% ---------------> usuario configuracion
+
 %programfiles% ---------------> archivos de programas
+
 %systemroot% ----------------> windows
+
 %homedrive% --------------> disco Raiz
 
 
 para este caso nos serviria la variable de "%homedrive%". Pongamos el ejemplo con un simple batch que ejecuta el notepad
 Código:
-
+```
 @echo off
 title pruba
 echo ahora se ejecutara el notepad
 %homedrive%/windows/system32/notepad.exe
 exit
-
+```
 
 en caso de que tubieramos en el disco c:
 
