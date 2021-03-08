@@ -240,4 +240,47 @@ COPY C:\XD D:\docs\here\ || ECHO there was mistake
 
 pause>nul
 ```
+<h1>generate random value:</h1>
 
+```
+@echo off
+
+echo the value is random is: %value% :: %random% is for generating value random.
+
+pasue>nul
+
+```
+
+<h1>changue console color:</h1>
+
+console color:
+0 = Negro
+1 = Azul
+2 = Verde
+3 = Aguamarina
+4 = Rojo
+5 = Purpura
+6 = Amarillo
+7 = Blanco
+8 = Gris
+9 = Azul claro
+
+text color:
+A = Verde claro
+B = Aguamarina claro
+C = Rojo claro
+D = Purpura claro
+E = Amarillo claro
+F = Blanco brillante
+
+```
+
+@echo off
+
+color 0a
+
+echo letter
+
+pause>nul
+
+```
