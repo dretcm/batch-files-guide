@@ -28,7 +28,7 @@ pause
 ```
 @echo off
 
-dir
+dir  :: the dir or path will be in the current directory where you create the file.bat
 
 start camera.exe
 
