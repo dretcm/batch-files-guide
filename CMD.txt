@@ -1,0 +1,89 @@
+ctrl + w para cerrar pestaññas en google.
+1---> ver IP:
+
+ipconfig  # especifico
+
+ipconfig /all   # en general
+
+mstc
+
+# tambien podria ser:
+
+>systeminfo
+
+2----> crear capeta:
+
+MKDIR hola_carpeta
+MD hola_carpeta
+
+3----> Copiar Archivos:
+
+C:\Users\USUARIO>COPY C:\users\usuario\holaaqui D:\programas
+C:\users\usuario\holaaqui\gilberto.txt
+        1 archivo(s) copiado(s).
+C:\Users\USUARIO>
+
+
+C:\Users\USUARIO\Desktop\gg\my games\VT voice\data\images
+
+4 ----> ping : verificar conectividad.
+
+ping www.google.com
+ping google.com
+ping youtube.com
+
+5 -----> eliminar archivos
+
+del books.txt
+del books
+
+6 -----> shutdown pc
+
+shutdown -p  // turn off pc
+shutdown -r  // restart pc
+shutdown -a  // cancel turn off
+shutdown -s // turn off immediately
+shutdown -l  // log out session
+shutdown -f  // turn off pc without warn to user
+
+- add /t 'secons' ot -t 'secons' for saying that the pc will turn off in x secons:
+-eg: 
+
+shutdown -p -t 120  # 2 minutes
+shutdown -r -t 10   # 10 seconts
+
+7 -----> finish proccess[1] : current process[2]
+
+# [1]:
+
+>taskkill \f \im explorer.exe
+>taskkill \f \im google.exe
+
+# [2]
+
+>tasklist
+
+....
+
+start explorer.exe
+etc..
+
+8 -----> changue the password:
+
+net user usuario *   # changue usuario by your user actual in your pc.
+
+9 -----> doskey
+
+>doskey /history  # muestra los comandos utilizados en ese proceso.
+
+10 ----> move:
+
+> move d:\texto.txt f:\words\page\
+
+11 ----> recovery job or work :
+
+1. windows + r
+2. type %temp%
+3. search your file
+
+12 --------->
