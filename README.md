@@ -69,6 +69,7 @@ call deactivate
 
 %homedrive% --------------> disco Raiz
 
+%cd% ---------------------> obtener directorio actual.
 
 para este caso nos serviria la variable de "%homedrive%". Pongamos el ejemplo con un simple batch que ejecuta el notepad
 Código:
