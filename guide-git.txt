@@ -1,0 +1,83 @@
+Alexander Carpio Mamani 211-10-51640
+1 --------------->>> fork :
+
+1. goo click to code
+2. select SSH and copy it
+3. put in the bash terminal git clone git@github ....
+
+# show all files or folders of current path:
+ls
+
+# show you connection user if you is connect:
+git remote -v
+
+1 --------------->>> ssh :
+
+# 1 step
+ssh-keygen -t ed25519 -C "[tu correo]"
+cat [url donde se creó el archivo termina en .pub]
+
+# 2 step
+git clone [url shh copiado de github donde dice Code]
+
+# 3 step
+
+1 --------------->>> create commit :
+
+#create
+touch hola.txt
+
+# state of git or file
+git status
+
+
+# go into the file:
+vim hola.txt  # vim is my editor, chose you editor according the installation.
+
+# show the content
+cat hola.txt
+
+#  commit:
+git add hola.txt # for save the txt in the repository.
+
+git commit -m "anadido proyecto base"
+
+1 --------------->>> save changues :
+# record that you ust be in the path of folder git.
+
+git add .
+git add [cambio espesifico] # example : git add scripts/jotaro.py
+git commit -m "actualize el cambio"
+git push
+git push -u origin [branch]  # git push -u origin main
+
+1 --------------->>> git pull
+
+# git pull es un comando de Git utilizado para actualizar la versión local de un repositorio desde otro remoto. Es uno de los cuatro comandos que solicita interacción de red por Git. Por default, git pull hace dos cosas. Actualiza 
+# las referencias de rama remota para todas las demás ramas.
+
+git pull
+
+1 --------------->>> upstream
+#add new brach
+git remote add upstream git@github.com:Alfred-CQ/Git_Taller_Grupo11.git
+
+# delete:
+git remote remove upstream
+
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
+1 --------------->>>
