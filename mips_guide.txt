@@ -1,0 +1,401 @@
+values of v0 for types of varibles :
+
+Service		System Call Code	Arguments	Result
+print_int	1		$a0 = integer	
+print_float	2		$f12 = float	
+print_double	3		$f12 = double	
+print_string	4		$a0 = string	
+read_int	5					
+read_float	6					
+read_double	7					
+read_string	8		$a0 = buffer, $a1 = length	
+sbrk		9		$a0 = amount			
+exit		10		
+print_character	11		$a0 = character	
+read_character	12									
+open		13		$a0 = filename,	file descriptor (in $v0)			
+read		14		$a0 = file descriptor,	bytes read (in $v0)			
+write		15		$a0 = file descriptor,	bytes written (in $v0)			
+close		16		$a0 = file descriptor						
+exit2		17		$a0 = value	
+
+
+1 -------------> print string : int : float : exit :
+
+
+#################################################
+# text segment #
+#################################################
+.text
+.globl __start
+__start: # execution starts here
+
+la $a0,aea # put string address into a0, var of aea
+li $v0,4 # system call to print, 4: string
+syscall 
+      
+lw $t0, a($zero)  # load variable a: 13
+lw $t1, b($zero)
+add $t2, $t1, $t0   # t2 = t1 + t0
+move $a0, $t2   # put the integer addres into a0.
+# lw $a0, a   ### print the variable "a"
+li $v0,1   # 1: integer
+syscall
+
+la $a0,break_line
+li $v0,4
+syscall
+
+lwc1 $f12, c
+li $v0,2   # 2: float
+syscall
+
+la $a0,break_line
+li $v0,4
+syscall
+
+la $a0,d
+li $v0,4  # 4: char's
+syscall
+
+
+li $v0,10   # call to system to exit
+syscall
+
+
+#################################################
+# data segment #
+#################################################
+
+.data
+break_line: .asciiz "\n"
+
+aea: .asciiz "hello world gaaa xd\n"
+a: .word 13
+b: .word 2
+
+c: .float 3.14
+## end of file hello.asm
+
+d: .byte 'x'
+
+
+2 -------------> simple input int :
+
+.data
+     text:  .asciiz "Enter a number: "
+
+
+.text
+ main:
+    # Printing out the text
+    li $v0, 4
+    la $a0, text
+    syscall
+
+    # Getting user input(integer input : 5)
+    li $v0, 5
+    syscall
+
+    # Moving the integer input to another register
+    move $t0, $v0
+
+    # Printing out the number
+    li $v0, 1
+    move $a0, $v0
+    syscall
+
+    # End Program
+    li $v0, 10
+    syscall
+
+3 -------------> loop :
+
+.data
+	text:  .asciiz "Loop Ending."
+     	break_line: .asciiz "\n"
+
+.text
+main:
+	addi $t0, $zero, 0         # i=0
+	loop:
+		bgt $t0, 10, end      # i<=10
+		jal print_i
+		addi $t0, $t0, 1         # (i++, i+=1, i = i + 1)
+		j loop             # jal loop : call to function loop
+	end:
+    		la $a0, text
+    		li $v0, 4
+    		syscall
+    	
+    	li $v0, 10
+    	syscall
+    		
+print_i:
+	add $a0, $t0, $zero
+    	li $v0, 1
+    	syscall
+ 
+    	la $a0, break_line
+    	li $v0, 4
+    	syscall
+    		
+    	jr $ra    # jar $ra   : return ago or previous
+
+4 -------------> beq : blzq : less that : 
+
+### beq $11, $0, function means jump to the third instruction ahead from beq if $11 == $0. For instance:
+
+beq $11, $0, ok
+
+li $v0, 10
+syscall
+
+ok:
+	# do something	
+
+
+
+### beq $11, function means if $11 < 0.
+bltz $11, ok   
+
+li $v0, 10
+syscall
+
+ok:
+	# do something
+
+
+
+if ($s0 > $s1) { goto label1 }
+if ($s0 >= $s1) { goto label2 }
+if ($s0 <= $s1) { go to label3 }
+
+slt  $t1,$s1,$s0      # checks if $s0 > $s1
+bne  $t1,$zero,label1 # if $s0 >  $s1, ($t1 != 0),  goes to label1
+beq  $s1,$s2,label2   # if $s0 == $s2, goes to label2 
+# beq  $t1,$zero,label3 # if $s0 <  $s1, goes to label3
+b    label3            # only possibility left
+
+
+5 -------------> Arrays : print array with loop :
+
+.data
+	MyArray: .space 12  # 12: number of bits, that is to say, 12/4 = 3 is the number of elements.
+
+.text
+
+addi $s0, $zero, 15   # $s0 = 15
+addi $s1, $zero, 10
+addi $s2, $zero, 5
+
+addi $t0, $zero, 0 # index = 0
+
+
+sw $s0, MyArray($t0)  # array[0] = 15
+	addi $t0, $t0, 4
+
+sw $s1, MyArray($t0)  # array[1] = 10
+	addi $t0, $t0, 4
+	
+sw $s2, MyArray($t0)  # array[2] = 5
+
+
+lw $t8, MyArray($zero)  # array[0]
+li $v0, 1
+addi $a0, $t8, 0
+syscall
+
+
+addi $t0, $zero, 8
+lw $t8, MyArray($t0)  # array[2]
+li $v0, 1
+addi $a0, $t8, 0
+syscall
+
+
+
+
+
+# printing array with loop :
+
+.data
+	MyArray: .space 12  # 12: number of bits, that is to say, 12/4 = 3 is the number of elements.
+	newline: .asciiz "\n"
+.text
+
+addi $s0, $zero, 15   # $s0 = 15
+addi $s1, $zero, 10
+addi $s2, $zero, 5
+
+addi $t0, $zero, 0 # index = 0
+
+sw $s0, MyArray($t0)  # array[0] = 15
+	addi $t0, $t0, 4
+sw $s1, MyArray($t0)  # array[1] = 10
+	addi $t0, $t0, 4
+sw $s2, MyArray($t0)  # array[2] = 5
+
+addi $t0, $zero, 0 # reset index to 0
+
+loop:
+	beq $t0, 12, exit
+	
+	lw $t8, MyArray($t0)  # $t8 = array[index]
+	addi $t0, $t0, 4    # index += 4
+	
+	li $v0, 1
+	addi $a0, $t8, 0
+	syscall
+
+	li $v0, 4
+	la $a0, newline
+	syscall
+	
+	j loop
+	
+exit:
+	li $v0, 10
+	syscall
+
+
+6 ------------->  order selection algorithm : two loops :
+
+# Alexander Carpio Mamani - CCOMP3-1
+
+.data
+	MyArray: .space 20 # 5 elementos
+	lenght: .word 20
+	newline: .asciiz "\n"
+	space: .asciiz ", "
+	message_1: .asciiz " Antes: "
+	message_2: .asciiz " Despues: "
+	band: .word 1
+.text
+
+# MyArray = [7, 2, 5, 9, 1]
+addi $s0, $zero, 7   # $s0 = 7
+addi $s1, $zero, 2
+addi $s2, $zero, 5
+addi $s3, $zero, 9
+addi $s4, $zero, 1
+
+addi $t0, $zero, 0 # index = 0   or  i = 0
+lw $t6, lenght($zero)   # lenght = $t6 = 20
+addi $t7, $zero, 0  # controlador del print
+lw $s7, band($zero)
+
+sw $s0, MyArray($t0)  # array[0] = 7
+	addi $t0, $t0, 4  # index += 4  : "+4" por el tamaño de bits enteros.
+sw $s1, MyArray($t0)  # array[1] = 2
+	addi $t0, $t0, 4
+sw $s2, MyArray($t0)
+	addi $t0, $t0, 4
+sw $s3, MyArray($t0)
+	addi $t0, $t0, 4
+sw $s4, MyArray($t0)
+
+addi $t0, $zero, 0   # reseteamos el index a 0
+
+la $a0, message_1
+li $v0, 4
+syscall
+
+print_array:
+	beq $t0, $t6, end_print
+	
+	lw $t8, MyArray($t0)
+	addi $t0, $t0, 4
+	
+	li $v0, 1
+	addi $a0, $t8, 0  # imprimimos array[index]
+	syscall
+
+	li $v0, 4
+	la $a0, space
+	syscall
+	
+	j print_array
+
+end_print:
+	la $a0, newline
+	li $v0, 4
+	syscall
+	
+	beq $t7, $s7, exit  # si $t7 == $s7: llamamos a la funcion exit
+	addi $t7, $t7, 1  # activacion de bandera
+	
+la $a0, message_2
+li $v0, 4
+syscall
+
+addi $t1, $zero, 0  # j = 0
+addi $t0, $zero, 0  # resetiamos el index, i = 0
+	
+for_i:
+	beq $t0, 16, end_for_i   # i=0; i<length-1
+	
+	add $t1, $t0, 4  # j = i + 1
+	
+	jal for_j   # llama a la funcion for_j, o sea un tipo anidamiento
+	
+for_j:
+	beq $t1, $t6, end_for_j  # j=i+1; j < length
+	
+	lw $t8, MyArray($t0)  # array[i]
+	lw $t9, MyArray($t1)  # array[j]
+	
+	slt $s5, $t9, $t8  # $t8 > $t9
+	bne $s5, $zero, intercambio  # si $s5 != $zero entonces llama a intercambio
+
+	addi $t1, $t1, 4 # j++;
+	
+	j for_j
+
+end_for_j:
+	addi $t0, $t0, 4  # i++;
+	jal for_i   # sale del anidamiento del for j
+	
+end_for_i:
+	addi $t0, $zero, 0  # reset index
+	j print_array   # al terminar el for i llama a la funcion para imprimir el array
+
+
+intercambio:
+	sw $t9, MyArray($t0)  # intercambio de valores
+	sw $t8, MyArray($t1)
+	
+	jr $ra   # vuelve a la funcion anteriro, osea for j
+	
+	
+exit:
+	li $v0, 10    # termina el programa.
+	syscall
+
+
+7 ------------->
+8 ------------->
+9 ------------->
+10 ------------->
+11 ------------->
+12 ------------->
+13 ------------->
+14 ------------->
+15 ------------->
+16 ------------->
+17 ------------->
+18 ------------->
+19 ------------->
+20 ------------->
+21 ------------->
+22 ------------->
+
+23 ------------->
+24 ------------->
+25 ------------->
+26 ------------->
+27 ------------->
+28 ------------->
+
+29 ------------->
+30 ------------->
