@@ -178,7 +178,7 @@ beq  $s1,$s2,label2   # if $s0 == $s2, goes to label2
 b    label3            # only possibility left
 
 
-5 -------------> Arrays : print array with loop :
+5 -------------> Arrays : print array with loop : .word array :
 
 .data
 	MyArray: .space 12  # 12: number of bits, that is to say, 12/4 = 3 is the number of elements.
@@ -257,6 +257,27 @@ loop:
 exit:
 	li $v0, 10
 	syscall
+
+
+
+# word array :
+
+.data
+a: .word 1,2 ,3 ,4 ,5
+
+.text
+la $t0, a  # array address to $t0
+
+lw $t1, 0($t0)   # array[0]
+lw $t2, 4($t0)   # array[1]
+lw $t3, 16($t0)   # array[4]
+
+move $a0, $t3
+li $v0, 1
+syscall
+
+li $v0,10
+syscall
 
 
 6 ------------->  order selection algorithm : two loops :
@@ -373,7 +394,92 @@ exit:
 	syscall
 
 
-7 ------------->
+7 -------------> conversions :
+
+Arithmetic Instructions
+add.s $f0, $f1, $f2 	$f0 := $f1 + $f2
+sub.s $f0, $f1, $f2 	$f0 := $f1 - $f2
+mul.s $f0, $f1, $f2 	$f0 := $f1 * $f2
+div.s $f0, $f1, $f2 	$f0 := $f1 / $f2
+abs.s $f0, $f1 		$f0 := |$f1|
+neg.s $f0, $f1 		$f0 := -$f1
+
+
+
+Data Movement Instructions
+● Memory Transfer Instructions
+l.s $f0, 100($t2) load word into $f0 from address $t2 + 100
+s.s $f0, 100($t2) store word from $f0 into address $t2 + 100
+
+● Data Movement between registers
+mov.s $f0, $f2 move between FP registers
+mfc1 $t1, $f2 move from FP registers (no conversion)
+mtc1 $t1, $f2 move to FP registers (no conversion)
+
+● Data conversion
+cvt.w.s $f2, $f4 convert from single precision FP to integer
+cvt.s.w $f2, $f4 convert from integer to single precision FP
+
+
+Conditional Jumps
+● Conditional jumps are performed in two stages
+● Comparison of FP values sets a code in a special register
+● Branch instructions jump depending on the value of the code
+
+● Comparison
+c.eq.s $f2, $f4 if $f2 == $f4 then code = 1 else code = 0
+c.le.s $f2, $f4 if $f2 <= $f4 then code = 1 else code = 0
+c.lt.s $f2, $f4 if $f2 < $f4 then code = 1 else code = 0
+● Branches
+bc1f label if code == 0 then jump to label
+bc1t label if code == 1 then jump to label
+
+
+
+
+# average example :
+.text
+.globl __start
+__start:
+	li $s1, 11 # vector size
+	la $s0, iArray
+	li $t0,0 # acumulador
+	li $t2,0 # contador
+	li $t3,0 # index
+loop: # bucle
+	add $t4,$s0,$t3 # $t4 = A($s0)
+	lw $t1, 0($t4)  # get int to array
+	add $t0,$t0,$t1 # t0 = t0 + t1
+	addi $t2,$t2,1 # t2++
+	
+	# go to next element to array:
+	add $t3,$0,$t2
+	add $t3,$t3,$t3 # t3 = 2t2
+	add $t3,$t3,$t3 # t3 = 4t2
+	
+	beq $t2,$s1,endLoop
+	j loop
+	
+endLoop:
+	mtc1 $t0,$f8 # f8 <- ($t0) (aun es entero)
+	mtc1 $s1,$f9 # $f9 <- tamaño array (aun es entero)
+	
+	cvt.s.w $f8,$f8 # conv. ($f8) a p.flotante
+	cvt.s.w $f9,$f9 # tamaño array  a p. flotante
+	
+	div.s $f12,$f8,$f9 # acumulado / tamaño array
+	la $a0, prmp01
+	li $v0, 4 # print string
+	syscall
+	li $v0, 2 # print the last float, print average.
+	syscall
+	li $v0, 10 # finish
+	syscall
+.data
+	iArray: .word 1,2,3,4,5,6,7,8,9,10,11
+	prmp01: .asciiz "El promedio de los valores es: "
+
+
 8 ------------->
 9 ------------->
 10 ------------->
