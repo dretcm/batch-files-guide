@@ -1,0 +1,52 @@
+1 -------------------------->>>	 UNINSTALL PROGRAMS :
+
+dpkg --list    // option 1 for show all programs or packages
+sudo apt --installed list | more    // opticon 2 para ver programas
+sudo apt-get purge [programa name]
+
+1 -------------------------->>> show all current process : kill : pkill
+
+top    // show
+kill [PID]
+pkill [process name]
+
+1 -------------------------->>> youtube downloader :
+
+// install downloader:
+sudo apt install youtube-dl
+
+
+// download video:
+youtube-dl https://youtu.be/5_dtgsbQlYg
+
+1 -------------------------->>> rename file :
+
+mv [original file] [new name file]
+
+// example:
+mv "Los Prisioneros - Por Qué No Se Van (Audio)-5_dtgsbQlYg.webm" aea.webm
+
+
+1 -------------------------->>> create folder : create file :
+
+// create folder:
+mkdir [folder name]
+
+
+//create file:
+touch [file name + "." + extension]
+
+
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+1 -------------------------->>>
+
+
