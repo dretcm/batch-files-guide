@@ -86,4 +86,13 @@ net user usuario *   # changue usuario by your user actual in your pc.
 2. type %temp%
 3. search your file
 
-12 --------->
+12 ---------> ver contenido html de una pagina:
+
+// print all page content in cmd:
+curl https://www.example.com
+
+// save all content of page in a html or text:
+curl https://www.example.com > algo.html
+curl https://www.example.com > algo.text
+
+13 --------->
