@@ -1,3 +1,19 @@
+----------------->> INSTALL GITHUB:
+sudo apt-get install git-all
+
+github@ubuntu:~$ cd ~/.ssh
+github@ubuntu:~/.ssh$ ssh-keygen -o -t rsa -C "email@example.com"
+github@ubuntu:~/.ssh$ ssh-keygen -o -t rsa -C "github@mcnz.com"
+
+github@ubuntu:~/.ssh$ cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCwrUzqtm
+3K9YNI2WbXxkcfnHZgyW7/3WXghBbKndhbKbCR00JLfTHsK
+Kaz17c4xIHQrw7u0GsPXai6pMtwMeVmXQH00L5hD0WE5Ioo
+
+-copy this in github https://github.com/settings/keys
+
+github@ubuntu:~$ git clone git@github.com:cameronmcnz/rock-paper-scissors.git
+
 1 -------------------------->>>	 UNINSTALL PROGRAMS :
 
 dpkg --list    // option 1 for show all programs or packages
@@ -59,7 +75,19 @@ vm.dirty_ratio = 3
 free -m  //show in megabytes
 free -h  // show in gygabytes and megabytes
 
-1 -------------------------->>>
+1 -------------------------->>> install c++ and C
+// install C++
+sudo apt install g++
+g++ test.cpp -o test
+
+//install C
+sudo apt install GCC
+gcc test.c -o test
+
+
+// to open file in terminal
+nano test.c
+
 1 -------------------------->>>
 1 -------------------------->>>
 1 -------------------------->>>
