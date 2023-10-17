@@ -14,6 +14,9 @@ Kaz17c4xIHQrw7u0GsPXai6pMtwMeVmXQH00L5hD0WE5Ioo
 
 github@ubuntu:~$ git clone git@github.com:cameronmcnz/rock-paper-scissors.git
 
+$ git config --global user.name "Mi Nombre"
+$ git config --global user.email miemail@dominio.com
+
 1 -------------------------->>>	 UNINSTALL PROGRAMS :
 
 dpkg --list    // option 1 for show all programs or packages
